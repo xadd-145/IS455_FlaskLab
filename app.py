@@ -55,22 +55,16 @@ def login():
             flash('Invalid Username or Password. Please try again.', 'warning')
     return render_template('login.html', is_login=True)
 
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('login'))
+
 @app.route('/main')
 def main():
     if 'username' not in session:
         return redirect(url_for('login'))
     return render_template('index.html', username=session['username'])
-
-@app.route('/search', methods=['GET'])
-def search():
-    search_term = request.args.get('search')
-    cur = mysql.connection.cursor()
-    query = "SELECT * FROM country WHERE Name LIKE %s"
-    cur.execute(query, ('%' + search_term + '%',))
-    results = cur.fetchall()
-    cur.close()
-    return jsonify(results)
-
 
 @app.route('/sort', methods=['GET'])
 def sort():
@@ -93,8 +87,3 @@ def sort():
     results = cur.fetchall()
     cur.close()
     return jsonify(results)
-
-@app.route('/logout')
-def logout():
-    session.pop('username', None)
-    return redirect(url_for('login'))

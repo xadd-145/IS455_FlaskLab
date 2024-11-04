@@ -5,7 +5,7 @@ class Config:
     MYSQL_HOST = 'localhost'
     MYSQL_USER = 'root'
     MYSQL_PASSWORD = ''
-    MYSQL_DB = 'world'
+    MYSQL_DB = 'world' # replace 'world' with your db name
     MYSQL_CURSORCLASS = 'DictCursor'
 
     # Session Configuration
