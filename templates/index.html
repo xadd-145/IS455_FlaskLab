@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flask App</title>
+    <link rel="stylesheet" href="../static/style/main.css" />
+  </head>
+  <body>
+    <h1>World DB</h1>
+    <a href="{{ url_for('logout') }}" id="logout">Logout</a>
+
+    <div class="search-container">
+      <input
+        action="/search"
+        method="get"
+        type="text"
+        id="search"
+        name="search"
+        placeholder="Search for Countries!"
+        onkeyup="updateSorting()"
+      />
+      <br />
+
+      <label for="criteria">Sort by:</label>
+      <select id="criteria" onchange="updateSorting()">
+        <option value="Name">Name</option>
+        <option value="Population">Population</option>
+      </select>
+      <br />
+
+      <label>
+        <input
+          type="radio"
+          name="sort_order"
+          value="asc"
+          onclick="updateSorting()"
+          checked
+        />
+        Ascending
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="sort_order"
+          value="desc"
+          onclick="updateSorting()"
+        />
+        Descending
+      </label>
+
+      <div id="country-results"></div>
+    </div>
+  </body>
+  <script src="{{ url_for('static', filename='script/modal.js') }}"></script>
+</html>
