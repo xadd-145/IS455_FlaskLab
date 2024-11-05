@@ -73,9 +73,10 @@ def sort():
     sort_order = request.args.get('sort_order', 'asc')
 
     cur = mysql.connection.cursor()
-    query = f"SELECT Name, Population FROM country WHERE Name LIKE {search_query} ORDER BY {criteria} {sort_order.upper()}"
+    query = f"SELECT Name, Population FROM country WHERE Name LIKE %s ORDER BY {criteria} {sort_order.upper()}"
 
-    cur.execute(query)
+    search_term = f"%{search_query}%"
+    cur.execute(query, (search_term,))
 
     results = cur.fetchall()
     cur.close()
