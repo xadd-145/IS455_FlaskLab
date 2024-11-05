@@ -72,17 +72,10 @@ def sort():
     criteria = request.args.get('criteria', 'Name')
     sort_order = request.args.get('sort_order', 'asc')
 
-    if criteria not in ['Name', 'Population']:
-        criteria = 'Name'
-
-    if sort_order not in ['asc', 'desc']:
-        sort_order = 'asc'
-
     cur = mysql.connection.cursor()
-    query = f"SELECT Name, Population FROM country WHERE Name LIKE %s ORDER BY {criteria} {sort_order.upper()}"
+    query = f"SELECT Name, Population FROM country WHERE Name LIKE {search_query} ORDER BY {criteria} {sort_order.upper()}"
 
-    search_term = f"%{search_query}%"
-    cur.execute(query, (search_term,))
+    cur.execute(query)
 
     results = cur.fetchall()
     cur.close()
