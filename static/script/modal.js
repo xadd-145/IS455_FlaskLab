@@ -1,3 +1,9 @@
+/**
+ * Updates the country list based on the search input and sorting criteria.
+ * @param {string} search The search query.
+ * @param {string} criteria The sorting criteria.
+ * @param {string} order The sorting order.
+ */
 function updateSorting() {
     const search = document.getElementById('search').value;
     const criteria = document.getElementById('criteria').value;
@@ -5,6 +11,12 @@ function updateSorting() {
     sortCountries(search, criteria, order);
 }
 
+/**
+ * Fetches the sorted list of countries from the server and updates the HTML.
+ * @param {string} search The search query.
+ * @param {string} criteria The sorting criteria.
+ * @param {string} order The sorting order.
+ */
 function sortCountries(search, criteria, order) {
     fetch(`/sort?search=${search}&criteria=${criteria}&sort_order=${order}`)
         .then(response => response.json())
@@ -23,4 +35,5 @@ function sortCountries(search, criteria, order) {
         .catch(error => console.error('Error:', error));
 }
 
+// Initial call to sort the list
 sortCountries('', 'Name', 'asc');

@@ -32,6 +32,7 @@
     <div class="container">
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
+          <!-- Display any flash messages -->
           {% for category, message in messages %}
             <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
               {{ message }}
@@ -42,7 +43,12 @@
 
       <div class="card">
         <h2>{{ 'Please Log In' if is_login else 'Create an Account' }}</h2>
-        <form action="{{ url_for('login' if is_login else 'signup') }}" method="POST">
+        <form
+          action="{{ url_for('login' if is_login else 'signup') }}"
+          method="POST"
+          id="login-form"
+        >
+          <!-- Username input field -->
           <div class="input-group">
             <span class="input-group-prepend">
               <i class="fas fa-user"></i>
@@ -55,6 +61,7 @@
               required
             />
           </div>
+          <!-- Password input field -->
           <div class="input-group">
             <span class="input-group-prepend">
               <i class="fas fa-key"></i>
@@ -67,6 +74,7 @@
               required
             />
           </div>
+          <!-- Submit button -->
           <button type="submit" id="login-buttons">{{ 'Log In' if is_login else 'Sign Up' }}</button>
         </form>
         <p>
@@ -80,3 +88,4 @@
     </div>
   </body>
 </html>
+
